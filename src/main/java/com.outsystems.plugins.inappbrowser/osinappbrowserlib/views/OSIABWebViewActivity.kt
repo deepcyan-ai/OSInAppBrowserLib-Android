@@ -346,16 +346,11 @@ class OSIABWebViewActivity : AppCompatActivity() {
                 urlString.startsWith("intent:") -> {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
-                // handle intent: urls
-                urlString.startsWith("upi:") -> {
+                // BEGIN handle payment deep links
+                urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") -> {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
-                urlString.startsWith("tez:") -> {
-                    launchIntent(urlString = urlString, isIntentUri = true)
-                }
-                urlString.startsWith("gpay:") -> {
-                    launchIntent(urlString = urlString, isIntentUri = true)
-                }
+                // END   handle payment deep links
                 // handle Google Play Store links opening the appropriate app
                 urlString.startsWith("https://play.google.com/store") || urlString.startsWith("market:") -> {
                     launchIntent(urlString = urlString, isGooglePlayStore = true)
