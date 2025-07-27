@@ -346,6 +346,10 @@ class OSIABWebViewActivity : AppCompatActivity() {
                 urlString.startsWith("intent:") -> {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
+                // handle intent: urls
+                urlString.startsWith("upi:") -> {
+                    launchIntent(urlString = urlString, isIntentUri = true)
+                }
                 // handle Google Play Store links opening the appropriate app
                 urlString.startsWith("https://play.google.com/store") || urlString.startsWith("market:") -> {
                     launchIntent(urlString = urlString, isGooglePlayStore = true)
