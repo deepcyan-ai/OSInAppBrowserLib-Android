@@ -347,7 +347,7 @@ class OSIABWebViewActivity : AppCompatActivity() {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
                 // BEGIN handle payment deep links
-                urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:) || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("cred:") -> {
+                urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:") || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("cred:") -> {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
                 // END   handle payment deep links
