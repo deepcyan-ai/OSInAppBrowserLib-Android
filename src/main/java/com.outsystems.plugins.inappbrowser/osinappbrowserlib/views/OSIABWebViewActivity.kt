@@ -346,11 +346,6 @@ class OSIABWebViewActivity : AppCompatActivity() {
                 urlString.startsWith("intent:") -> {
                     launchIntent(urlString = urlString, isIntentUri = true)
                 }
-                // BEGIN handle payment deep links
-                urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:") || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("cred:") -> {
-                    launchIntent(urlString = urlString, isIntentUri = true)
-                }
-                // END   handle payment deep links
                 // handle Google Play Store links opening the appropriate app
                 urlString.startsWith("https://play.google.com/store") || urlString.startsWith("market:") -> {
                     launchIntent(urlString = urlString, isGooglePlayStore = true)
@@ -361,7 +356,22 @@ class OSIABWebViewActivity : AppCompatActivity() {
                     if (showURL) urlText.text = urlString
                     true
                 }
-                else -> false
+                // BEGIN handle payment deep links
+                // urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:") || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("credpay:") -> {
+                //     Log.d(LOG_TAG, "Opening PAYMENT urlString: " + urlString)
+                //     launchIntent(urlString = urlString, isIntentUri = true)
+                // }
+                // END   handle payment deep links
+                else -> {
+                    try {
+                      Uri.parse(urlString)
+                      Log.d(LOG_TAG, "launchIntent PAYMENT urlString: " + urlString)
+                      launchIntent(urlString = urlString, isIntentUri = true)
+                    } catch (e: Exception) {
+                      Log.d(LOG_TAG, "Parsing urlString: " + urlString)
+                      false
+                    }
+                }
             }
         }
 
@@ -398,7 +408,7 @@ class OSIABWebViewActivity : AppCompatActivity() {
         ): Boolean {
             try {
                 val intent: Intent?
-                if (isIntentUri) {
+                if (false) {
                     intent = Intent.parseUri(urlString, Intent.URI_INTENT_SCHEME)
                 } else {
                     intent = Intent(intentAction).apply {
@@ -412,6 +422,7 @@ class OSIABWebViewActivity : AppCompatActivity() {
                 return true
             } catch (e: Exception) {
                 Log.d(LOG_TAG, "Failed to launch intent in WebView")
+                e.printStackTrace()
                 return false
             }
         }
