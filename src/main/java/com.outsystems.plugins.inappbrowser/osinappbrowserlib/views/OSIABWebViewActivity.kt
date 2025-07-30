@@ -408,14 +408,18 @@ class OSIABWebViewActivity : AppCompatActivity() {
                 if (false) {
                     intent = Intent.parseUri(urlString, Intent.URI_INTENT_SCHEME)
                 } else {
+                    Log.d(LOG_TAG, "Intent parseUri")
                     intent = Intent(intentAction).apply {
                         data = Uri.parse(urlString)
                         if (isGooglePlayStore) {
                             setPackage("com.android.vending")
                         }
                     }
+                    Log.d(LOG_TAG, "Intent parseUri")
                 }
+	        Log.d(LOG_TAG, "Intent start")
                 startActivity(intent)
+                Log.d(LOG_TAG, "Intent start")
                 return true
             } catch (e: Exception) {
                 Log.d(LOG_TAG, "Failed to launch intent in WebView")
