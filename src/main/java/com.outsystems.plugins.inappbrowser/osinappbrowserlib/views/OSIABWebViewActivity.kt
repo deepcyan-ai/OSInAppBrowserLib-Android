@@ -40,6 +40,9 @@ import com.outsystems.plugins.inappbrowser.osinappbrowserlib.R
 import com.outsystems.plugins.inappbrowser.osinappbrowserlib.models.OSIABToolbarPosition
 import com.outsystems.plugins.inappbrowser.osinappbrowserlib.models.OSIABWebViewOptions
 import kotlinx.coroutines.launch
+import android.content.pm.ResolveInfo
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class OSIABWebViewActivity : AppCompatActivity() {
 
@@ -415,11 +418,35 @@ class OSIABWebViewActivity : AppCompatActivity() {
                             setPackage("com.android.vending")
                         }
                     }
+
+        // Use queryIntentActivities to get a list of apps that can handle the UPI intent
                     Log.d(LOG_TAG, "Intent parseUri")
+val packageManager: PackageManager = packageManager
+        val activities: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
+
+        if (activities.isEmpty()) {
+            // Toast.makeText(this, "No UPI apps found on your device.", Toast.LENGTH_SHORT).show()
+            Log.d(LOG_TAG, "No UPI apps found on your device.")
+        } else {
+            val appNames = activities.map { it.loadLabel(packageManager).toString() }
+            Log.d(LOG_TAG, "APPs " + appNames.joinToString(", "))
+
+            // val builder = AlertDialog.Builder(this)
+            // builder.setTitle("Pay with")
+            // builder.setItems(appNames.toTypedArray()) { dialog, which ->
+            //     val chosenApp = activities[which]
+            //     val packageName = chosenApp.activityInfo.packageName
+
+            //     // Set the package name to ensure the chosen app handles the intent
+            //     intent.setPackage(packageName)
+            //     startActivityForResult(intent, 101)
+            // }
+            // builder.show()
+        }
                 }
 	        Log.d(LOG_TAG, "Intent start")
                 startActivity(intent)
-                Log.d(LOG_TAG, "Intent start")
+                Log.d(LOG_TAG, "Intent started")
                 return true
             } catch (e: Exception) {
                 Log.d(LOG_TAG, "Failed to launch intent in WebView")
