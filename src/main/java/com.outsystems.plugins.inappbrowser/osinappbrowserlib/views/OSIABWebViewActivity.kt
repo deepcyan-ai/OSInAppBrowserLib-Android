@@ -359,6 +359,9 @@ class OSIABWebViewActivity : AppCompatActivity() {
                     if (showURL) urlText.text = urlString
                     true
                 }
+                urlString.startsWith("https://app.y1card.com/") -> {
+                    launchIntent(urlString = "jinimoney://authorised/goals", isIntentUri= true)
+                }
                 // BEGIN handle payment deep links
                 // urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:") || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("credpay:") -> {
                 // END   handle payment deep links
