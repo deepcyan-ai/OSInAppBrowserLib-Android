@@ -354,13 +354,13 @@ class OSIABWebViewActivity : AppCompatActivity() {
                     launchIntent(urlString = urlString, isGooglePlayStore = true)
                 }
                 // handle every http and https link by loading it in the WebView
+                urlString.startsWith("https://app.y1card.com/") -> {
+                    launchIntent(urlString = "jinimoney://authorised/goals", isIntentUri= true)
+                }
                 urlString.startsWith("http:") || urlString.startsWith("https:") -> {
                     view?.loadUrl(urlString)
                     if (showURL) urlText.text = urlString
                     true
-                }
-                urlString.startsWith("https://app.y1card.com/") -> {
-                    launchIntent(urlString = "jinimoney://authorised/goals", isIntentUri= true)
                 }
                 // BEGIN handle payment deep links
                 // urlString.startsWith("upi:") || urlString.startsWith("tez:") || urlString.startsWith("gpay:") || urlString.startsWith("googlepay:") || urlString.startsWith("paytm:") || urlString.startsWith("paytmmp:") || urlString.startsWith("phonepe:") || urlString.startsWith("ppe:") || urlString.startsWith("credpay:") -> {
